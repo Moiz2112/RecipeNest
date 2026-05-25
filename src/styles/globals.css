@@ -1,0 +1,110 @@
+/* 
+   Tailwind CSS Base, Components, and Utilities 
+   These import Tailwind's default styles, utility classes, and components.
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import premium culinary/modern fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --foreground-rgb: 15, 23, 42; /* Deep slate slate-900 */
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 254, 252, 243; /* Soft milky cream backdrop */
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: radial-gradient(circle at 50% 50%, #fffbf2 0%, #fff8e7 100%);
+  overflow-x: hidden;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .z-overlay {
+    z-index: 10;
+  }
+  .z-header {
+    z-index: 50;
+  }
+  .z-modal {
+    z-index: 100;
+  }
+  .z-modal-top {
+    z-index: 150;
+  }
+
+  /* Glassmorphism Styles */
+  .glass-nav {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px 0 rgba(245, 158, 11, 0.04), 0 4px 16px 0 rgba(0, 0, 0, 0.02);
+  }
+
+  .glass-card-hover {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-card-hover:hover {
+    transform: translateY(-6px);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    box-shadow: 0 20px 40px -15px rgba(245, 158, 11, 0.12), 0 0 0 1px rgba(245, 158, 11, 0.05);
+  }
+
+  /* Dynamic Text & Buttons */
+  .glow-gold {
+    box-shadow: 0 4px 20px -2px rgba(245, 158, 11, 0.45);
+  }
+
+  .glow-gold:hover {
+    box-shadow: 0 6px 26px -1px rgba(245, 158, 11, 0.65);
+    transform: scale(1.02);
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-accent {
+    background: linear-gradient(135deg, #f43f5e 0%, #be123c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+html {
+  scrollbar-gutter: stable;
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  h1 {
+    @apply font-extrabold mt-6 mb-4 tracking-tight;
+    font-family: 'Outfit', sans-serif;
+  }
+  h2 {
+    @apply font-bold mt-6 mb-4 tracking-tight;
+    font-family: 'Outfit', sans-serif;
+  }
+  h3 {
+    @apply font-semibold mt-4 mb-2 tracking-tight;
+    font-family: 'Outfit', sans-serif;
+  }
+}
