@@ -40,7 +40,7 @@ next-env.d.ts
 # misc
 /scripts
 /src/pages/api/api-test.ts
-.env
+
 node_modules
 .next
 dist
