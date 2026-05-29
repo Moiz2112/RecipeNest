@@ -1,148 +1,152 @@
 
-# 🍳 Smart Recipe Generator - AI-Powered Recipe App
+# RecipeNest
 
-![GitHub Stars](https://img.shields.io/github/stars/Dereje1/smart-recipe-generator?style=social)
-![GitHub Forks](https://img.shields.io/github/forks/Dereje1/smart-recipe-generator?style=social)
-![License](https://img.shields.io/github/license/Dereje1/smart-recipe-generator)
+![GitHub Stars](https://img.shields.io/github/stars/Moiz2112/RecipeNest?style=social)
+![GitHub Forks](https://img.shields.io/github/forks/Moiz2112/RecipeNest?style=social)
+![License](https://img.shields.io/github/license/Moiz2112/RecipeNest)
 ![Vercel Deployment](https://img.shields.io/badge/Deployed%20on-Vercel-green)
 
-**Smart Recipe Generator** is an **AI-powered web application** that uses **OpenAI text models** to generate unique recipes based on selected ingredients and dietary preferences (configurable via `OPENAI_TEXT_MODEL`, default: `gpt-5-mini`), **OpenAI GPT Image** to create custom recipe images (default: `gpt-image-1`), and **TTS** to narrate recipes. It's designed to make cooking easy, creative, and accessible for everyone.
+RecipeNest is an AI-powered cooking app that generates recipes from selected ingredients, supports detailed step-by-step instructions with quantities, and now includes a full smart grocery inventory system for tracking stock, expiry, consumption, alerts, shopping lists, and analytics.
 
-🎥 **App Demo**
+The app supports configurable text generation backends through `OPENAI_TEXT_MODEL` and can run against Groq/Grok-compatible or OpenAI-compatible endpoints depending on your API key. Recipe images, narration, tags, and chat assistance are also supported.
 
-![Smart Recipe Generator Demo](./public/demo.gif)
-
-🌐 **[Live Demo →](https://smart-recipe-generator.vercel.app/)**
+🌐 Live demo: https://smart-recipe-generator.vercel.app/
 
 ---
 
-## ⚡️ Key Features
+## What's New
 
-### 🤖 **AI-Powered Features**
-- **Configurable OpenAI Text Recipe Generation**: Create unique recipes based on user-selected ingredients and dietary preferences (default text model: `gpt-5-mini`).
-- **OpenAI GPT Image Generation**: Automatically generate high-quality images of the recipes (default model: `gpt-image-1`).
-- **Text-to-Speech (TTS)**: Narrate recipes aloud using AI-driven speech synthesis.
-- **AI-Generated Tags**: Recipes are automatically tagged with relevant keywords for better searchability.
-- **Context-Aware Chat Assistant**: Ask cooking-related questions about a recipe (e.g., substitutions, vegan options, prep time). Powered by the configurable OpenAI text model (default: `gpt-5-mini`), limited to the context of each recipe.
-
-### 📋 **Core Features**
-- **User Authentication**: Secure login via Google OAuth using NextAuth.js.
-- **Ingredient Selection**: Choose from a database of ingredients or add your own.
-- **Dietary Preferences**: Support for vegan, gluten-free, keto, paleo, and more.
-- **Recipe Management**: Like, save, and share recipes.
-- **Infinite Scrolling**: Browse recipes seamlessly without pagination buttons.
-- **Sort by Popularity or Newest**: View recipes sorted by likes or creation date.
-- **Tag-Based Search**: Find recipes using AI-generated tags for ingredients and dietary relevance.
-- **Notifications**: Get real-time updates on activity (likes, comments, etc.).
-- **Mobile-Responsive UI**: Fully optimized for all devices.
+- Smart Grocery Inventory Management with dashboard, items, expiry tracking, alerts, shopping list, categories, and analytics.
+- Recipe generation prompts that ask the model for distinct, inventive recipes with exact ingredient quantities.
+- Recipe cooking flow support that can deduct ingredients from inventory when a recipe is cooked.
+- Inventory alerts and shopping list automation based on low stock and expiry dates.
 
 ---
 
-## 🚀 Tech Stack
+## Features
 
-- **Frontend**: Next.js, React, Tailwind CSS
-- **Backend**: Node.js, MongoDB
-- **AI Integration**: Configurable OpenAI text model (default: `gpt-5-mini`) for text features, OpenAI GPT Image (`gpt-image-1`) for images, TTS for narration
-- **Authentication**: NextAuth.js with Google OAuth
-- **Cloud Storage**: AWS S3 for storing images and audio
-- **Deployment**: Vercel
+### AI Cooking
+- Generate 3 distinct recipes from selected ingredients and dietary preferences.
+- Produce detailed instructions that include exact quantities for each step.
+- Generate recipe images for saved recipes.
+- Narrate recipes with text-to-speech.
+- Ask the chat assistant recipe-specific cooking questions.
+
+### Inventory Management
+- Add, edit, search, filter, and delete inventory items.
+- Track quantity, unit, storage location, purchase date, expiry date, and minimum threshold.
+- View dashboard analytics for stock, spending, consumption, and expiry.
+- Auto-generate low-stock alerts and shopping list items.
+- Track recipe-driven consumption and manual consumption entries.
+
+### Core App Features
+- Google sign-in through NextAuth.
+- Browse recipes with likes, saves, tags, and notifications.
+- Infinite scrolling and sort options.
+- Mobile-friendly UI with the existing RecipeNest theme.
 
 ---
 
-## 🛠️ Installation
+## Tech Stack
 
-### 1. **Clone the Repository**
+- Next.js 14, React 18, TypeScript
+- MongoDB with Mongoose
+- NextAuth.js
+- Tailwind CSS
+- AWS S3 for image storage
+- OpenAI-compatible text and image APIs
+- Docker for local MongoDB
+
+---
+
+## Prerequisites
+
+- Node.js 18 or newer
+- Docker Desktop or a local MongoDB instance
+- A valid API key for your configured text model provider
+- Google OAuth credentials for login
+
+---
+
+## Setup
+
+### 1. Clone the repo
 ```bash
-git clone https://github.com/Dereje1/smart-recipe-generator.git
-cd smart-recipe-generator
+git clone https://github.com/Moiz2112/RecipeNest.git
+cd RecipeNest/smart-recipe-generator
 ```
 
-### 2. **Install Dependencies**
+### 2. Install dependencies
 ```bash
 npm install
 ```
 
-### 3. **Set Up Environment Variables**
-Create a `.env.local` file and add:
+### 3. Start MongoDB with Docker
+```bash
+docker compose up -d
+```
+
+### 4. Create `.env.local`
 ```env
 NEXT_PUBLIC_API_BASE_URL=http://localhost:3000
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-secret
 GOOGLE_CLIENT_ID=your-google-client-id
 GOOGLE_CLIENT_SECRET=your-google-client-secret
-OPENAI_API_KEY=your-openai-api-key
-OPENAI_TEXT_MODEL=gpt-5-mini
-OPENAI_IMAGE_MODEL=gpt-image-1
+OPENAI_API_KEY=your-api-key
+OPENAI_TEXT_MODEL=llama-3.3-70b-versatile
+OPENAI_IMAGE_MODEL=dall-e-3
+CLOUDFLARE_API_KEY=your-cloudflare-key
+CLOUDFLARE_ACCOUNT_ID=your-cloudflare-account-id
+USE_MOCK_RECIPES=false
 AWS_ACCESS_KEY_ID=your-aws-access-key-id
 AWS_SECRET_ACCESS_KEY=your-aws-secret-key
-MONGO_URI=your-mongodb-uri
+MONGO_URI=mongodb://root:123456@localhost:27018/smart-recipe-generator?authSource=admin
 S3_BUCKET_NAME=your-s3-bucket-name
-API_REQUEST_LIMIT=maximum-api-requests
+API_REQUEST_LIMIT=50
+ALLOW_PUBLIC_RECIPES=false
 ```
 
-### 4. **Run the Development Server**
+### 5. Run the app
 ```bash
 npm run dev
 ```
-App will be live at [http://localhost:3000](http://localhost:3000).
+
+The app will be available at http://localhost:3000.
 
 ---
 
-## 💡 Usage
+## Scripts
 
-1. **Log in** with Google.
-2. **Select Ingredients** and **Dietary Preferences**.
-3. **Generate Recipes** powered by the configurable **OpenAI text model** (default: **gpt-5-mini**).
-4. **View AI-Generated Images** and **Play Narrations**.
-5. **Search Recipes** using AI-generated tags.
-6. **Browse Recipes** with infinite scrolling and sorting by newest or most liked.
-7. **Save, Like, and Share** your favorite recipes.
-8. **Use the Chat Assistant** to ask follow-up questions about a recipe (e.g. substitutions, dietary changes, or cook time).
-
----
-
-## 🧪 Testing & Building
-
-### Unit Tests
-Run Jest tests:
 ```bash
-npm test
-```
-Generate a coverage report:
-```bash
-npm run coverage
-```
-
-### Compile TypeScript
-Check the entire project for type errors:
-```bash
-npm run compileTS
-```
-
-### End-to-End Tests
-Run all Cypress tests with the provided script which automatically starts the
-development server:
-```bash
-npm run test:e2e
-```
-For the interactive UI:
-```bash
-npx cypress open
+npm run dev       # Start development server
+npm run build     # Production build
+npm run start     # Run the production server
+npm run compileTS # TypeScript checks
+npm run test      # Jest watch mode
+npm run coverage  # Jest coverage report
+npm run cy:run    # Cypress headless tests
 ```
 
 ---
 
-## 📊 Contributing
+## Testing
 
-Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
-
-### ⭐ **If you like this project, give it a star!**  
-It helps more people discover it.
+- Unit tests: `npm run coverage`
+- Type checks: `npm run compileTS`
+- End-to-end tests: `npm run test:e2e`
 
 ---
 
-## 🏆 Acknowledgements
-- [OpenAI](https://openai.com/)
-- [Vercel](https://vercel.com/)
-- [Next.js](https://nextjs.org/)
-- [MongoDB](https://www.mongodb.com/)
+## Contributing
+
+Pull requests are welcome. If you plan a larger change, open an issue first so it can be discussed.
+
+---
+
+## Acknowledgements
+
+- Next.js
+- MongoDB
+- Vercel
+- OpenAI-compatible APIs
