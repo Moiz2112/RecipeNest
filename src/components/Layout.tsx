@@ -2,6 +2,7 @@ import React from 'react';
 import { useSession, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Link from 'next/link';
 import Header from './Header';
 import Hero from '../pages/Hero';
 import Loading from './Loading'
@@ -37,7 +38,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           <header className="fixed inset-x-0 top-4 z-header mx-auto max-w-5xl px-4">
             <nav className="flex items-center justify-between px-6 py-3 rounded-2xl glass-nav border border-white/60 shadow-lg" aria-label="Global">
               <div className="flex lg:flex-1">
-                <a href="/" className="-m-1.5 p-1.5 flex items-center gap-2 hover:opacity-85 transition">
+                <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2 hover:opacity-85 transition">
                   <span className="sr-only">Smart Recipe Generator</span>
                   <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-brand-500 flex items-center justify-center shadow-md">
                     <Image src="/logo.svg" alt="RecipeNest Logo" fill className="p-1 object-contain" />
@@ -45,21 +46,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                   <span className="font-extrabold text-lg text-neutral-800 tracking-tight font-heading">
                     Recipe<span className="text-brand-600">Nest</span>
                   </span>
-                </a>
+                </Link>
               </div>
               <div className="flex gap-x-6">
-                <a
-                  href="/"
-                  className="text-sm font-semibold leading-6 text-neutral-600 hover:text-brand-600 hover:bg-neutral-50 px-3 py-1.5 rounded-lg transition duration-200"
-                >
-                  Home
-                </a>
-                <a
-                  href="/About"
-                  className="text-sm font-semibold leading-6 text-brand-700 bg-brand-50 px-3 py-1.5 rounded-lg transition duration-200"
-                >
-                  About
-                </a>
+                <Link href="/" className="text-sm font-semibold leading-6 text-neutral-600 hover:text-brand-600 hover:bg-neutral-50 px-3 py-1.5 rounded-lg transition duration-200">Home</Link>
+                <Link href="/About" className="text-sm font-semibold leading-6 text-brand-700 bg-brand-50 px-3 py-1.5 rounded-lg transition duration-200">About</Link>
               </div>
               <div className="flex lg:flex-1 lg:justify-end">
                 <button

@@ -13,6 +13,7 @@ const userNavigation = [
 const navigation = [
     { name: 'Home', route: '/Home', style: 'text-gray-300 hover:bg-brand-700 hover:text-white' },
     { name: 'Create Recipes', route: '/CreateRecipe', style: 'bg-brand-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-brand-600 transition-all animate-pulse' },
+    { name: 'Inventory', route: '/inventory/dashboard', style: 'text-gray-300 hover:bg-brand-700 hover:text-white' },
     { name: 'About', route: '/About', style: 'text-gray-300 hover:bg-brand-700 hover:text-white' },
 ]
 

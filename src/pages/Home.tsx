@@ -5,6 +5,7 @@ import ViewRecipes from '../components/Recipe_Display/ViewRecipes';
 import FloatingActionButtons from '../components/FloatingActionButtons';
 import Loading from '../components/Loading';
 import PopularTags from '../components/PopularTags';
+import InventoryHero from '../components/InventoryHero';
 import { usePagination } from '../components/Hooks/usePagination';
 
 const Home = () => {
@@ -123,6 +124,9 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+
+            {/* Inventory Hero Section */}
+            <InventoryHero />
 
             {/* Recipes Section */}
             <div className="w-full px-4 py-8 flex-1">

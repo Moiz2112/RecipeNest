@@ -41,10 +41,10 @@ export default function Product({ resetPage }: { resetPage: () => void }) {
           <span>🍳 THE INTELLIGENT CULINARY ENGINE</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-black text-neutral-900 leading-tight">
-          How It <span className="text-gradient-gold">Works</span>
+          Our Product
         </h1>
         <p className="text-base md:text-lg text-neutral-600 max-w-2xl leading-relaxed">
-          RecipeNest's step-by-step smart path allows anyone to cook like a Michelin-star chef, utilizing whatever ingredients are currently in your kitchen.
+          Learn how Smart Recipe Generator makes meal planning effortless.
         </p>
       </div>
 

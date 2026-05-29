@@ -45,10 +45,10 @@ export default function Features({ resetPage }: { resetPage: () => void }) {
           <span>🚀 CORE CAPABILITIES</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-black text-neutral-900 leading-tight">
-          Why Cook with <span className="text-gradient-gold">RecipeNest AI?</span>
+          Features
         </h1>
         <p className="text-base md:text-lg text-neutral-600 max-w-2xl leading-relaxed">
-          Experience the absolute vanguard of kitchen technology. We combine cutting-edge intelligence with culinary science to turn your pantry ingredients into pure gourmet art.
+          Explore what makes Smart Recipe Generator unique.
         </p>
       </div>
 

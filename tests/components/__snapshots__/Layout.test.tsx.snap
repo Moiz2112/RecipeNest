@@ -22,44 +22,56 @@ exports[`The Layout renders the Loading wheel if session is loading 1`] = `
 exports[`The Layout renders the hero if the user is not authenticated 1`] = `
 <div>
   <div
-    class="bg-white"
+    class="min-h-screen bg-gradient-to-b from-[#fffbf2] via-[#fffbf6] to-white relative overflow-hidden"
   >
     <header
-      class="absolute inset-x-0 top-0 z-header"
+      class="fixed inset-x-0 top-4 z-header mx-auto max-w-5xl px-4"
     >
       <nav
         aria-label="Global"
-        class="flex items-center justify-between p-6 lg:px-8"
+        class="flex items-center justify-between px-6 py-3 rounded-2xl glass-nav border border-white/60 shadow-lg"
       >
         <div
           class="flex lg:flex-1"
         >
-          <a
-            class="-m-1.5 p-1.5"
-            href="#"
+          <button
+            class="-m-1.5 p-1.5 flex items-center gap-2 hover:opacity-85 transition"
           >
             <span
               class="sr-only"
             >
-              RecipeNest
+              Smart Recipe Generator
             </span>
-            <img
-              alt="Smart Recipe Generator Logo"
-              data-nimg="1"
-              decoding="async"
-              height="75"
-              loading="lazy"
-              src="/logo.svg"
-              style="color: transparent;"
-              width="75"
-            />
-          </a>
+            <div
+              class="relative w-9 h-9 rounded-xl overflow-hidden bg-brand-500 flex items-center justify-center shadow-md"
+            >
+              <img
+                alt="RecipeNest Logo"
+                class="p-1 object-contain"
+                data-nimg="fill"
+                decoding="async"
+                loading="lazy"
+                src="/logo.svg"
+                style="position: absolute; height: 100%; width: 100%; left: 0px; top: 0px; right: 0px; bottom: 0px; color: transparent;"
+              />
+            </div>
+            <span
+              class="font-extrabold text-lg text-neutral-800 tracking-tight font-heading"
+            >
+              Recipe
+              <span
+                class="text-brand-600"
+              >
+                Nest
+              </span>
+            </span>
+          </button>
         </div>
         <div
           class="flex lg:hidden"
         >
           <button
-            class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            class="-m-2.5 inline-flex items-center justify-center rounded-xl p-2.5 text-neutral-700 hover:bg-neutral-100 transition"
             type="button"
           >
             <span
@@ -86,20 +98,20 @@ exports[`The Layout renders the hero if the user is not authenticated 1`] = `
           </button>
         </div>
         <div
-          class="hidden lg:flex lg:gap-x-12"
+          class="hidden lg:flex lg:gap-x-8"
         >
           <button
-            class="text-sm font-semibold leading-6 text-gray-900"
+            class="text-sm font-semibold leading-6 transition duration-200 px-3 py-1.5 rounded-lg text-neutral-600 hover:text-brand-600 hover:bg-neutral-50"
           >
             Product
           </button>
           <button
-            class="text-sm font-semibold leading-6 text-gray-900"
+            class="text-sm font-semibold leading-6 transition duration-200 px-3 py-1.5 rounded-lg text-neutral-600 hover:text-brand-600 hover:bg-neutral-50"
           >
             Features
           </button>
           <button
-            class="text-sm font-semibold leading-6 text-gray-900"
+            class="text-sm font-semibold leading-6 transition duration-200 px-3 py-1.5 rounded-lg text-neutral-600 hover:text-brand-600 hover:bg-neutral-50"
           >
             About
           </button>
@@ -108,14 +120,9 @@ exports[`The Layout renders the hero if the user is not authenticated 1`] = `
           class="hidden lg:flex lg:flex-1 lg:justify-end"
         >
           <button
-            class="text-sm font-semibold leading-6 text-gray-900"
+            class="text-sm font-bold leading-6 text-white bg-neutral-900 px-5 py-2.5 rounded-xl shadow-md hover:bg-neutral-800 hover:shadow-lg transition-all transform hover:-translate-y-0.5"
           >
-            Log in With Google 
-            <span
-              aria-hidden="true"
-            >
-              →
-            </span>
+            Log in with Google
           </button>
         </div>
       </nav>
@@ -124,36 +131,33 @@ exports[`The Layout renders the hero if the user is not authenticated 1`] = `
       />
     </header>
     <div
-      class="relative isolate px-6 pt-14 lg:px-8"
+      class="relative isolate px-6 pt-24 lg:px-8"
     >
       <div
         aria-hidden="true"
         class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
       >
         <div
-          class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-          style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%);"
+          class="relative left-[calc(50%-15rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-brand-300 to-accent-200 opacity-20 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem] animate-pulseGlow"
         />
       </div>
       <div
-        class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56"
+        class="mx-auto max-w-4xl py-12 sm:py-20 lg:py-24"
       >
         <div
-          class="hidden sm:mb-8 sm:flex sm:justify-center"
+          class="hidden sm:mb-8 sm:flex sm:justify-center animate-fadeInUp"
         >
           <div
-            class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20"
+            class="relative rounded-full px-4 py-1.5 text-xs leading-6 text-neutral-600 ring-1 ring-neutral-200/80 bg-white/60 backdrop-blur-sm hover:ring-brand-300 transition duration-300"
           >
-            Discover our new AI-powered recipe generator.
+            Discover our brand new Groq AI generator.
              
             <a
-              class="font-semibold text-brand-600"
-              href="https://github.com/Dereje1/smart-recipe-generator"
+              class="font-semibold text-brand-600 ml-1 hover:underline"
+              href="/createRecipe"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <span
-                aria-hidden="true"
-                class="absolute inset-0"
-              />
               Learn more 
               <span
                 aria-hidden="true"
@@ -164,43 +168,40 @@ exports[`The Layout renders the hero if the user is not authenticated 1`] = `
           </div>
         </div>
         <div
-          class="animate-fadeInUp mx-auto flex max-w-4xl flex-col items-center gap-10 py-10 md:flex-row md:py-20"
+          class="animate-fadeInUp mx-auto flex max-w-3xl flex-col items-center text-center gap-8 py-16 md:py-24 px-4"
         >
           <div
-            class="flex flex-col items-center text-center md:items-start md:text-left md:w-1/2 space-y-6"
+            class="inline-flex items-center space-x-2 bg-brand-100/70 border border-brand-200/50 rounded-full px-4 py-1.5 text-xs font-semibold text-brand-800 backdrop-blur-md animate-float"
           >
-            <h1
-              class="text-5xl font-extrabold tracking-tight text-gray-900"
-            >
-              Cook Smarter with AI
-            </h1>
-            <p
-              class="text-lg leading-8 text-gray-600"
-            >
-              Drop in the ingredients you have on hand and let our AI whip up creative recipes tailored to your dietary needs.
-            </p>
-            <button
-              class="w-fit rounded-md bg-brand-600 px-5 py-3 text-base font-semibold text-white shadow-md transition hover:bg-brand-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-600"
-            >
-              Get started
-            </button>
+            <span>
+              ✨ Supercharged by Groq AI
+            </span>
           </div>
-          <div
-            class="md:w-1/2"
+          <h1
+            class="text-5xl md:text-6xl font-black tracking-tight text-neutral-900 leading-tight"
           >
-            <img
-              alt="Smart Recipe Generator demo"
-              class="rounded-xl shadow-xl"
-              data-nimg="1"
-              decoding="async"
-              height="400"
-              loading="lazy"
-              src="/_next/image?url=%2Fdemo.gif&w=1200&q=75"
-              srcset="/_next/image?url=%2Fdemo.gif&w=640&q=75 1x, /_next/image?url=%2Fdemo.gif&w=1200&q=75 2x"
-              style="color: transparent;"
-              width="600"
-            />
-          </div>
+            Whip Up 
+            <span
+              class="text-gradient-gold"
+            >
+              Culinary Magic
+            </span>
+          </h1>
+          <p
+            class="text-lg leading-relaxed text-neutral-600 max-w-xl"
+          >
+            Instantly transform the ingredients in your fridge into mouthwatering, personalized recipes. Perfect meals, tailored by AI.
+          </p>
+          <button
+            class="group relative flex items-center justify-center rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 px-8 py-4 text-base font-bold text-white shadow-xl glow-gold hover:from-brand-600 hover:to-brand-700 transition duration-300 transform hover:-translate-y-0.5"
+          >
+            Get started
+            <span
+              class="ml-2 group-hover:translate-x-1 transition-transform"
+            >
+              →
+            </span>
+          </button>
         </div>
       </div>
       <div
@@ -208,8 +209,7 @@ exports[`The Layout renders the hero if the user is not authenticated 1`] = `
         class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
       >
         <div
-          class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-          style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%);"
+          class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-accent-200 to-brand-200 opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem] animate-pulseGlow"
         />
       </div>
     </div>

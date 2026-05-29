@@ -21,7 +21,7 @@ export default function Landing() {
                 className="group relative flex items-center justify-center rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 px-8 py-4 text-base font-bold text-white shadow-xl glow-gold hover:from-brand-600 hover:to-brand-700 transition duration-300 transform hover:-translate-y-0.5"
                 onClick={() => signIn('google')}
             >
-                Start Cooking Free
+                Get started
                 <span className="ml-2 group-hover:translate-x-1 transition-transform">&rarr;</span>
             </button>
         </div>

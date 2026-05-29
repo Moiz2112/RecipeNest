@@ -18,6 +18,7 @@ import { useRouter } from 'next/router';
 import audioload from '../../assets/audioload.gif';
 import audioGenerate from '../../assets/audiogenerate.gif'
 import { ExtendedRecipe } from '../../types';
+import { call_api } from '../../utils/utils';
 
 interface ActionPopoverProps {
     handlers: {
@@ -112,6 +113,20 @@ export function ActionPopover({ handlers, states, data }: ActionPopoverProps) {
                                 Chat with Assistant
                             </button>
                             {getAudioControls()}
+                            <button className="group flex w-full items-center gap-2 rounded-lg py-2 px-4 text-gray-700 hover:bg-gray-100 focus:bg-gray-100" onClick={async () => {
+                                try {
+                                    close();
+                                    await call_api({ address: '/api/inventory/consume', method: 'post', payload: { recipeId: data.recipe._id, ingredients: data.recipe.ingredients } });
+                                    // simple alert
+                                    alert('Ingredients deducted from your inventory (if matching items found).');
+                                } catch (err) {
+                                    console.error(err);
+                                    alert('Failed to deduct ingredients.');
+                                }
+                            }}>
+                                <PlayCircleIcon className="h-5 w-5 text-gray-500" />
+                                Cook Recipe (Deduct Ingredients)
+                            </button>
                             {
                                 (handlers.closeDialog || data.recipe.owns) && <div className="my-1 h-px bg-gray-200" />
                             }

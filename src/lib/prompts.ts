@@ -1,13 +1,35 @@
 import { Ingredient, DietaryPreference, Recipe, ExtendedRecipe } from '../types/index'
 
 export const getRecipeGenerationPrompt = (ingredients: Ingredient[], dietaryPreferences: DietaryPreference[]) => `
-I have the following ingredients: ${JSON.stringify(ingredients)} ${dietaryPreferences.length ? `and dietary preferences: ${dietaryPreferences.join(',')}` : ''}. Please provide me with three different delicious and diverse recipes. The response should be in the following JSON format without any additional text, markdown, or code formatting (e.g., no backticks):
+I have the following ingredients: ${JSON.stringify(ingredients)} ${dietaryPreferences.length ? `and dietary preferences: ${dietaryPreferences.join(',')}` : ''}.
+
+Create exactly 3 recipes that feel genuinely different from one another. Do not reuse a template or repeat the same style across all three.
+
+Creative direction:
+- Make the first recipe comforting and practical.
+- Make the second recipe brighter, fresher, or more elevated.
+- Make the third recipe feel globally inspired or restaurant-style.
+- If the ingredients suggest a better path, you may choose a different direction, but the three recipes must still feel clearly distinct.
+
+Rules:
+- Each recipe must have a unique heading and a distinct cooking style.
+- Prefer different formats such as skillet meal, baked dish, soup/stew, bowl, wrap, pasta, roast, or stir-fry when appropriate.
+- Avoid generic labels like Fusion Bowl, Medley, Salad, or Catch-All titles unless they are truly the best fit for the ingredients.
+- Include exact quantities for every ingredient using practical kitchen units (for example: 1 cup, 2 tbsp, 3 cloves, 200 g, 1 tsp, 2 pieces).
+- Instructions must be step-by-step, specific, and beginner friendly.
+- Every instruction step must say exactly how much to add or use when an ingredient is added, mixed, cooked, or seasoned.
+- Do not say "add some" or "to taste" by itself. If seasoning is needed, give a measured amount such as "1/2 tsp salt" or "1 tbsp soy sauce".
+- Include amounts for supporting ingredients too, such as oil, water, broth, salt, pepper, herbs, spices, and finishing garnishes.
+- If a step involves heat or timing, explain the action and the quantity together, such as "Add 2 tbsp oil, then sauté the onions for 3 minutes."
+- Keep the output strictly as valid JSON with no markdown, explanation, or extra text.
+
+The response should be in the following JSON format without any additional text, markdown, or code formatting (e.g., no backticks):
 [
     {
         "name": "Recipe Name",
         "ingredients": [
-            {"name": "Ingredient 1", "quantity": "quantity and unit"},
-            {"name": "Ingredient 2", "quantity": "quantity and unit"},
+            {"name": "Ingredient 1", "quantity": "exact quantity and unit"},
+            {"name": "Ingredient 2", "quantity": "exact quantity and unit"},
             ...
         ],
         "instructions": [
@@ -19,13 +41,12 @@ I have the following ingredients: ${JSON.stringify(ingredients)} ${dietaryPrefer
         "additionalInformation": {
             "tips": "Provide practical cooking tips, such as using the right cookware or ingredient substitutions.",
             "variations": "Suggest creative variations for the recipe, like adding more vegetables or using different proteins.",
-            "servingSuggestions": "Include ideas for how to serve the dish (e.g., with toast, salad, or specific sauces).",
             "nutritionalInformation": "Provide approximate nutritional details (e.g., calories, protein, fat, etc.)."
         }
     },
     ...
 ]
-Please ensure the recipes are diverse in type or cuisine (e.g., different meal categories or international flavors) and use all the ingredients listed unless dietary preferences or practicality dictate otherwise. Quantities must include appropriate units (e.g., grams, cups, teaspoons) for precision. Provide clear, detailed instructions suitable for someone with basic cooking skills. The instructions should be ordered but not include step numbers. Additionally, ensure the recipes respect the dietary preferences provided by suggesting suitable alternatives where necessary. The JSON must be valid and parsable without any additional text or formatting outside the JSON structure.
+Each recipe should feel different in flavor profile, method, and name. Ensure the recipes respect the dietary preferences provided by suggesting suitable alternatives where necessary. The JSON must be valid and parsable without any additional text or formatting outside the JSON structure.
 `;
 
 export const getImageGenerationPrompt = (recipeName: string, ingredients: Recipe['ingredients']): string => {

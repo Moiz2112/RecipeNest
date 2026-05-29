@@ -81,91 +81,120 @@ type ResponseType = {
 const generateMockRecipe = async (ingredients: Ingredient[], dietaryPreferences: DietaryPreference[], userId: string): Promise<ResponseType> => {
     try {
         console.log('Generating recipes with mock data...');
-        
-        // Generate realistic mock recipes based on ingredients
-        const ingredientNames = ingredients.map(i => i.name);
+        const ingredientNames = ingredients.map((i) => i.name);
         const prefs = Array.isArray(dietaryPreferences) ? dietaryPreferences : [];
-        
-        const mockRecipes = [
+
+        const stylePool = [
             {
-                name: `${ingredientNames.slice(0, 2).join(' and ')} Fusion Bowl`,
-                description: `A delicious fusion dish combining ${ingredientNames.join(', ')}`,
-                ingredients: ingredients.map((i, idx) => ({ 
-                    name: i.name, 
-                    quantity: `${idx + 1}`, 
-                    unit: idx % 2 === 0 ? 'cup' : 'tbsp' 
-                })),
-                instructions: [
-                    `Prepare all ${ingredientNames.join(', ')} ingredients`,
-                    'Mix ingredients in a large bowl',
-                    'Season to taste',
-                    'Let rest for 10 minutes',
-                    'Serve hot or cold'
+                prefix: 'Zesty',
+                format: 'Skillet',
+                prepTime: '12 minutes',
+                cookTime: '18 minutes',
+                servings: 2,
+                steps: (names: string[]) => [
+                    `Prep and chop all ingredients: ${names.join(', ')}.`,
+                    'Warm oil in a skillet over medium heat.',
+                    `Cook the main ingredients until lightly browned, then add the remaining ingredients in stages.`,
+                    'Season, stir, and cook until everything is tender and well coated.',
+                    'Finish with a short rest before serving hot.'
                 ],
+                tips: 'Cook in batches if the pan is crowded.',
+                variations: 'Swap in extra vegetables or a different protein.',
+                servingSuggestions: 'Serve over rice, noodles, or mashed potatoes.',
+                nutritionalInformation: 'Balanced meal with protein, vegetables, and carbohydrates.'
+            },
+            {
+                prefix: 'Roasted',
+                format: 'Tray Bake',
                 prepTime: '15 minutes',
+                cookTime: '25 minutes',
+                servings: 3,
+                steps: (names: string[]) => [
+                    `Preheat the oven and arrange ${names.join(', ')} on a lined tray.`,
+                    'Toss everything with oil, seasoning, and any dry spices.',
+                    'Spread evenly and roast until the edges are caramelized.',
+                    'Turn once halfway through for even browning.',
+                    'Rest briefly, then serve warm.'
+                ],
+                tips: 'Cut ingredients into similar sizes for even cooking.',
+                variations: 'Add herbs, citrus, or a yogurt sauce.',
+                servingSuggestions: 'Pair with flatbread, couscous, or a simple grain salad.',
+                nutritionalInformation: 'High in fiber and rich in flavor.'
+            },
+            {
+                prefix: 'Creamy',
+                format: 'Soup',
+                prepTime: '10 minutes',
                 cookTime: '20 minutes',
                 servings: 4,
-                dietaryPreference: prefs.length > 0 ? prefs : ['Regular'],
-                additionalInformation: {
-                    tips: 'Use fresh ingredients for best flavor',
-                    variations: 'Try adding different proteins or vegetables',
-                    servingSuggestions: 'Serve with rice or noodles',
-                    nutritionalInformation: 'High in protein and fiber'
-                }
+                steps: (names: string[]) => [
+                    `Chop ${names.join(', ')} into small, even pieces.`,
+                    'Sauté aromatics in a pot until fragrant.',
+                    'Add the vegetables and enough liquid to cover them.',
+                    'Simmer until tender, then blend lightly or leave chunky.',
+                    'Adjust seasoning and serve hot.'
+                ],
+                tips: 'Add stock gradually so the texture stays controlled.',
+                variations: 'Finish with cream, coconut milk, or herbs.',
+                servingSuggestions: 'Serve with toast, crackers, or a sandwich.',
+                nutritionalInformation: 'Comforting and filling with a moderate calorie count.'
             },
             {
-                name: `Pan-Seared ${ingredientNames[0] || 'Protein'} with Medley`,
-                description: `A classic pan-seared dish with ${ingredientNames.slice(1).join(', ')}`,
-                ingredients: ingredients.map((i, idx) => ({ 
-                    name: i.name, 
-                    quantity: `${2 - idx}`, 
-                    unit: 'serving' 
-                })),
-                instructions: [
-                    'Heat oil in a large pan',
-                    `Add ${ingredientNames[0]} and sear for 5 minutes`,
-                    `Add remaining ingredients: ${ingredientNames.slice(1).join(', ')}`,
-                    'Cook until golden brown',
-                    'Finish with fresh herbs'
-                ],
+                prefix: 'Herby',
+                format: 'Bowl',
                 prepTime: '10 minutes',
-                cookTime: '15 minutes',
+                cookTime: '12 minutes',
                 servings: 2,
-                dietaryPreference: prefs.length > 0 ? prefs : ['Regular'],
-                additionalInformation: {
-                    tips: 'Don\'t overcrowd the pan',
-                    variations: 'Substitute proteins or add different vegetables',
-                    servingSuggestions: 'Serve with a fresh salad',
-                    nutritionalInformation: 'Great source of lean protein'
-                }
-            },
-            {
-                name: `Fresh ${ingredientNames.slice(0, 3).join(', ')} Salad`,
-                description: `A vibrant and refreshing salad loaded with nutrition`,
-                ingredients: ingredients.map((i, idx) => ({ 
-                    name: i.name, 
-                    quantity: '1', 
-                    unit: 'serving' 
-                })),
-                instructions: [
-                    `Chop all ingredients: ${ingredientNames.join(', ')}`,
-                    'Combine in a large mixing bowl',
-                    'Prepare vinaigrette dressing',
-                    'Toss until well coated',
-                    'Serve immediately chilled'
+                steps: (names: string[]) => [
+                    `Cook the base ingredients and set them aside.`,
+                    `Prepare ${names.join(', ')} with a quick seasoning mix.`,
+                    'Layer the base, toppings, and any sauce in a bowl.',
+                    'Add fresh herbs or crunch for contrast.',
+                    'Serve immediately while warm.'
                 ],
-                prepTime: '10 minutes',
-                cookTime: '0 minutes',
-                servings: 2,
-                dietaryPreference: prefs.length > 0 ? prefs : ['Vegetarian', 'Vegan'],
-                additionalInformation: {
-                    tips: 'Keep dressing separate until ready to serve',
-                    variations: 'Add nuts, seeds, or cheese',
-                    servingSuggestions: 'Perfect as a main or side dish',
-                    nutritionalInformation: 'Low calorie and nutrient dense'
-                }
+                tips: 'Keep wet and dry components separate until plating.',
+                variations: 'Add avocado, pickles, seeds, or a spicy drizzle.',
+                servingSuggestions: 'Great for lunch or a light dinner.',
+                nutritionalInformation: 'Well-rounded bowl with protein, texture, and fresh elements.'
             }
         ];
+
+        const selectedStyles = Array.from({ length: 3 }, (_, index) => {
+            const styleIndex = (Math.floor(Math.random() * stylePool.length) + index) % stylePool.length;
+            return stylePool[styleIndex];
+        });
+
+        const buildQuantity = (index: number) => {
+            const cycle = ['1 cup', '2 tbsp', '3 cloves', '200 g', '1 tsp', '2 pieces', '150 ml', '1/2 cup'];
+            return cycle[index % cycle.length];
+        };
+
+        const mockRecipes = selectedStyles.map((style, recipeIndex) => {
+            const mainIngredient = ingredientNames[recipeIndex % Math.max(ingredientNames.length, 1)] || 'Mixed Ingredient';
+            const supportingNames = ingredientNames.filter((_, idx) => idx !== recipeIndex % Math.max(ingredientNames.length, 1));
+            const recipeIngredientNames = ingredientNames.length ? ingredientNames : [mainIngredient];
+
+            return {
+                name: `${style.prefix} ${mainIngredient} ${style.format}`,
+                description: `A distinct ${style.format.toLowerCase()} built around ${mainIngredient} and ${supportingNames.slice(0, 2).join(', ') || 'balanced pantry flavors'}.`,
+                ingredients: recipeIngredientNames.map((name, idx) => ({
+                    name,
+                    quantity: buildQuantity(idx + recipeIndex),
+                    unit: ''
+                })),
+                instructions: style.steps(recipeIngredientNames),
+                prepTime: style.prepTime,
+                cookTime: style.cookTime,
+                servings: style.servings,
+                dietaryPreference: prefs.length > 0 ? prefs : ['Regular'],
+                additionalInformation: {
+                    tips: style.tips,
+                    variations: style.variations,
+                    servingSuggestions: style.servingSuggestions,
+                    nutritionalInformation: style.nutritionalInformation
+                }
+            };
+        });
         
         const recipesJson = JSON.stringify(mockRecipes);
         
@@ -242,16 +271,29 @@ export const generateRecipe = async (ingredients: Ingredient[], dietaryPreferenc
 
     try {
         console.log('Generating recipes using AI model:', OPENAI_TEXT_MODEL);
-        const prompt = getRecipeGenerationPrompt(ingredients, dietaryPreferences);
+        const creativeBriefs = [
+            'Lean into comfort-food techniques, but keep the recipes practical and weeknight-friendly.',
+            'Aim for brighter flavors, fresh herbs, a little acidity, and a more elegant presentation.',
+            'Treat the ingredients like a restaurant chef would: bold contrasts, layered textures, and a polished final dish.',
+            'Use a global inspiration lens, but keep the ingredients recognizable and the instructions easy to follow.'
+        ];
+        const creativeBrief = creativeBriefs[Math.floor(Math.random() * creativeBriefs.length)];
+        const prompt = `${creativeBrief}\n\n${getRecipeGenerationPrompt(ingredients, dietaryPreferences)}`;
 
         const response = await textClient.chat.completions.create({
             model: OPENAI_TEXT_MODEL,
             messages: [{
+                role: 'system',
+                content: 'You are an inventive chef who writes distinct, realistic, and vivid recipes. Never reuse a generic recipe template unless the ingredients truly demand it.'
+            }, {
                 role: 'user',
                 content: prompt,
             }],
             max_completion_tokens: 2500,
-            temperature: 0.7,
+            temperature: 1.05,
+            top_p: 0.98,
+            frequency_penalty: 0.35,
+            presence_penalty: 0.6,
         });
 
         const rawResponse = response.choices[0].message?.content?.trim() || '';
@@ -262,9 +304,18 @@ export const generateRecipe = async (ingredients: Ingredient[], dietaryPreferenc
             .replace(/\s*```$/, '')
             .trim();
 
+        const extractJsonArray = (text: string) => {
+            const start = text.indexOf('[');
+            const end = text.lastIndexOf(']');
+            if (start >= 0 && end > start) {
+                return text.slice(start, end + 1);
+            }
+            return text;
+        };
+
         // Validate JSON structure by parsing it
         try {
-            const parsed = JSON.parse(sanitizedResponse);
+            const parsed = JSON.parse(extractJsonArray(sanitizedResponse));
             if (!Array.isArray(parsed)) {
                 throw new Error('Expected JSON array of recipes.');
             }

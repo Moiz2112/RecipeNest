@@ -129,7 +129,7 @@ export default function AboutPage() {
                   Smart Recipe Generator is a cutting-edge web application that leverages artificial intelligence to help you discover and create personalized recipes based on your available ingredients and dietary preferences.
                 </p>
                 <p className="text-gray-600 text-lg leading-relaxed">
-                  Whether you're a culinary enthusiast looking for inspiration or someone seeking quick meal solutions, our platform provides intelligent recipe suggestions tailored to your needs.
+                  Whether you&apos;re a culinary enthusiast looking for inspiration or someone seeking quick meal solutions, our platform provides intelligent recipe suggestions tailored to your needs.
                 </p>
               </div>
 
