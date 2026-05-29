@@ -8,12 +8,6 @@
 
 **Smart Recipe Generator** is an **AI-powered web application** that uses **OpenAI text models** to generate unique recipes based on selected ingredients and dietary preferences (configurable via `OPENAI_TEXT_MODEL`, default: `gpt-5-mini`), **OpenAI GPT Image** to create custom recipe images (default: `gpt-image-1`), and **TTS** to narrate recipes. It's designed to make cooking easy, creative, and accessible for everyone.
 
-🎥 **App Demo**
-
-![Smart Recipe Generator Demo](./public/demo.gif)
-
-🌐 **[Live Demo →](https://smart-recipe-generator.vercel.app/)**
-
 ---
 
 ## ⚡️ Key Features
