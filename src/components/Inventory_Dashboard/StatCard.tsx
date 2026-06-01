@@ -7,6 +7,7 @@ interface StatCardProps {
   unit?: string;
   trend?: number;
   color: 'orange' | 'red' | 'blue' | 'green' | 'purple';
+  onClick?: () => void;
 }
 
 const colorMap = {
@@ -17,8 +18,13 @@ const colorMap = {
   purple: 'from-purple-500 to-purple-600'
 };
 
-export const StatCard = ({ icon, label, value, unit, trend, color }: StatCardProps) => (
-  <div className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg border border-neutral-100/50 hover:shadow-xl transition-all duration-300">
+export const StatCard = ({ icon, label, value, unit, trend, color, onClick }: StatCardProps) => (
+  <div
+    onClick={onClick}
+    role={onClick ? 'button' : undefined}
+    tabIndex={onClick ? 0 : undefined}
+    className={`relative overflow-hidden rounded-2xl bg-white p-6 shadow-lg border border-neutral-100/50 hover:shadow-xl transition-all duration-300 ${onClick ? 'cursor-pointer' : ''}`}
+  >
     {/* Gradient background */}
     <div className={`absolute inset-0 bg-gradient-to-br ${colorMap[color]} opacity-5`}></div>
 

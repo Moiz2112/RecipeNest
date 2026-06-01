@@ -92,6 +92,28 @@ export default function InventoryItems() {
     router.push(`/inventory/add-item?edit=${item._id}`);
   };
 
+  const handleReduce = async (item: InventoryItem) => {
+    const input = prompt(`Reduce quantity for ${item.name} (current: ${item.quantity} ${item.unit}). Enter amount to reduce:`);
+    if (!input) return;
+    const reduceBy = Number(input);
+    if (isNaN(reduceBy) || reduceBy <= 0) {
+      alert('Please enter a valid positive number');
+      return;
+    }
+
+    const newQuantity = Math.max(0, item.quantity - reduceBy);
+
+    try {
+      const response = await axios.put(`/api/inventory/${item._id}`, { quantity: newQuantity });
+      // Update local state
+      setItems(prev => prev.map(i => (i._id === item._id ? response.data.data : i)));
+      setFilteredItems(prev => prev.map(i => (i._id === item._id ? response.data.data : i)));
+    } catch (error) {
+      console.error('Failed to reduce quantity:', error);
+      alert('Failed to update item quantity');
+    }
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'in-stock':
@@ -250,6 +272,12 @@ export default function InventoryItems() {
                         >
                           <PencilIcon className="w-4 h-4" />
                           <span className="text-xs font-medium">Edit</span>
+                        </button>
+                        <button
+                          onClick={() => handleReduce(item)}
+                          className="inline-flex items-center gap-1 px-3 py-1.5 text-amber-700 bg-amber-50 rounded-lg hover:bg-amber-100 transition-colors"
+                        >
+                          <span className="text-xs font-medium">Reduce</span>
                         </button>
                         <button
                           onClick={() => handleDelete(item._id)}

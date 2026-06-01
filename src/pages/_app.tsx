@@ -7,6 +7,7 @@ import Head from 'next/head'
 import Layout from '../components/Layout';
 import '../styles/globals.css';
 
+
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
@@ -35,12 +36,16 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
             <Layout>
                 <Head>
                     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+                    <link rel="icon" href="/recipe-nest-image1.png" />
+                    <title>RecipeNest</title>
+                    <meta name="description" content="Smart Recipe Generator - create recipes from ingredients" />
                 </Head>
                 <Component {...pageProps} />
             </Layout>
             <div id="alert-root"></div>
         </SessionProvider>
     );
+    
 }
 
 export default MyApp;

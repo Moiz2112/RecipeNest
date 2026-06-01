@@ -21,7 +21,6 @@ const steps = [
 const initialIngredients: Ingredient[] = [];
 const initialPreferences: DietaryPreference[] = [];
 const initialRecipes: Recipe[] = [];
-const initialSelectedIds: string[] = [];
 
 function Navigation({
   recipeCreationData,
@@ -35,7 +34,6 @@ function Navigation({
   const [ingredients, setIngredients] = useState(initialIngredients);
   const [preferences, setPreferences] = useState(initialPreferences);
   const [generatedRecipes, setGeneratedRecipes] = useState(initialRecipes);
-  const [selectedRecipeIds, setSelectedRecipeIds] = useState(initialSelectedIds);
   const [isLoading, setIsLoading] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [loadingType, setLoadingType] = useState<'generation' | 'saving'>('generation')
@@ -105,7 +103,6 @@ function Navigation({
         setIngredients(initialIngredients);
         setPreferences(initialPreferences);
         setGeneratedRecipes(initialRecipes);
-        setSelectedRecipeIds(initialSelectedIds);
         setStep(0);
         router.push('/Profile');
       }, 500);
@@ -185,8 +182,6 @@ function Navigation({
               ) : (
                 <SelectRecipesComponent
                   generatedRecipes={generatedRecipes}
-                  selectedRecipes={selectedRecipeIds}
-                  updateSelectedRecipes={setSelectedRecipeIds}
                   handleRecipeSubmit={handleRecipeSubmit}
                 />
               )}

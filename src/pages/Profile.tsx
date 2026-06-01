@@ -1,55 +1,18 @@
 import { GetServerSideProps } from 'next';
-import { useState } from 'react';
 import ProfileInformation from '../components/Profile_Information/ProfileInformation';
-import ProfileStickyBanner from '../components/Profile_Information/ProfileStickyBanner';
-import ViewRecipes from '../components/Recipe_Display/ViewRecipes';
-import { getServerSidePropsUtility, updateRecipeList } from '../utils/utils';
-import { ExtendedRecipe } from '../types';
+import { getServerSidePropsUtility } from '../utils/utils';
 
-interface ProfileProps {
-    profileData: {
-        recipes: ExtendedRecipe[];
-        AIusage: number
-    }
-}
+function Profile(_props?: Record<string, unknown>) {
 
-function Profile({ profileData }: ProfileProps) {
-    const [latestRecipes, setLatestRecipes] = useState(profileData?.recipes || []);
-    const [displaySetting, setDisplaySetting] = useState('created')
-
-    const handleRecipeListUpdate = (recipe: ExtendedRecipe | null, deleteId?: string) => {
-        setLatestRecipes(updateRecipeList(latestRecipes, recipe, deleteId));
-    }
-
-    const handleDisplaySetting = () => {
-        let view: ExtendedRecipe[] = []
-        const recipes = latestRecipes || [];
-        if (displaySetting === 'created') {
-            view = recipes.filter(r => r.owns);
-        } else if (displaySetting === 'favorites') {
-            view = recipes.filter(r => r.liked);
-        } else {
-            view = recipes.filter(r => r.owns && r.likedBy && r.likedBy.length > 0);
-        }
-        return view;
-    }
     return (
-        <div className="flex flex-col min-h-screen items-center">
-            {/* Show banner only if user has no recipes */}
-            <ProfileStickyBanner userHasRecipes={(latestRecipes || []).filter(r => r.owns).length !== 0} />
-            <ProfileInformation
-                recipes={latestRecipes || []}
-                updateSelection={(val) => setDisplaySetting(val)}
-                selectedDisplay={displaySetting}
-                AIusage={profileData?.AIusage || 0}
-            />
-            <ViewRecipes recipes={handleDisplaySetting()} handleRecipeListUpdate={handleRecipeListUpdate} />
+        <div className="flex min-h-screen items-start justify-center bg-gradient-to-b from-rose-50 via-white to-amber-50 px-4 py-10 md:py-16">
+            <ProfileInformation />
         </div>
     )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    return await getServerSidePropsUtility(context, 'api/profile', 'profileData')
+    return await getServerSidePropsUtility(context, 'api/profile', 'profileData');
 };
 
 export default Profile;

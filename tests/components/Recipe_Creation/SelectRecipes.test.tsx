@@ -7,30 +7,15 @@ describe('The recipe selection component', () => {
     beforeEach(() => {
         props = {
             generatedRecipes: stubRecipeBatch,
-            updateSelectedRecipes: jest.fn(),
-            selectedRecipes: []
+            handleRecipeSubmit: jest.fn()
         }
     })
     afterEach(() => {
-        props.updateSelectedRecipes.mockClear()
+        props.handleRecipeSubmit.mockClear()
     })
-    it('shall handle a single recipe selection', () => {
+    it('shall submit all generated recipes without toggles', () => {
         render(<SelectRecipesComponent {...props} />)
-        // select first recipe in list
-        const firstRecipe = screen.getAllByRole('switch')[0]
-        fireEvent.click(firstRecipe);
-        expect(props.updateSelectedRecipes).toHaveBeenCalledWith(["6683b8908475eac9af5fe834"])
-    })
-
-    it('shall handle a single recipe de-selection', () => {
-        const updatedProps = {
-            ...props,
-            selectedRecipes: ["6683b8908475eac9af5fe834"]
-        }
-        render(<SelectRecipesComponent {...updatedProps} />)
-        // select first recipe in list
-        const firstRecipe = screen.getAllByRole('switch')[0]
-        fireEvent.click(firstRecipe);
-        expect(props.updateSelectedRecipes).toHaveBeenCalledWith([])
+        fireEvent.click(screen.getByRole('button', { name: /save all generated recipes/i }))
+        expect(props.handleRecipeSubmit).toHaveBeenCalledWith(stubRecipeBatch)
     })
 })

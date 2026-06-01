@@ -13,6 +13,15 @@ export default function AddItem() {
   const [loading, setLoading] = useState(!!edit);
   const [saving, setSaving] = useState(false);
 
+  const steps = [
+    'Basic Info',
+    'Stock Details',
+    'Expiry & Storage',
+    'Review',
+    'Complete',
+  ];
+  const progressStep = currentStep === 4 ? 5 : currentStep;
+
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -93,6 +102,8 @@ export default function AddItem() {
         await axios.post('/api/inventory', formData);
       }
 
+      setCurrentStep(5);
+
       router.push('/inventory/items');
     } catch (error) {
       console.error('Failed to save item:', error);
@@ -125,32 +136,39 @@ export default function AddItem() {
         {/* Progress Indicator */}
         <div className="mb-8">
           <div className="flex justify-between items-center">
-            {[1, 2, 3, 4].map((step) => (
+            {steps.map((stepLabel, index) => {
+              const step = index + 1;
+              return (
               <div key={step} className="flex items-center flex-1">
                 <div
                   className={`w-10 h-10 rounded-full flex items-center justify-center font-bold transition-all duration-300 ${
-                    step <= currentStep
+                    step <= progressStep
                       ? 'bg-brand-500 text-white'
                       : 'bg-neutral-200 text-neutral-600'
                   }`}
                 >
                   {step}
                 </div>
-                {step < 4 && (
+                {step < steps.length && (
                   <div
                     className={`flex-1 h-1 mx-2 transition-all duration-300 ${
-                      step < currentStep ? 'bg-brand-500' : 'bg-neutral-200'
+                      step < progressStep ? 'bg-brand-500' : 'bg-neutral-200'
                     }`}
                   ></div>
                 )}
               </div>
-            ))}
+              );
+            })}
           </div>
           <div className="flex justify-between mt-4 text-sm font-medium text-neutral-600">
-            <span className={currentStep === 1 ? 'text-brand-600 font-bold' : ''}>Basic Info</span>
-            <span className={currentStep === 2 ? 'text-brand-600 font-bold' : ''}>Stock Details</span>
-            <span className={currentStep === 3 ? 'text-brand-600 font-bold' : ''}>Expiry & Storage</span>
-            <span className={currentStep === 4 ? 'text-brand-600 font-bold' : ''}>Review</span>
+            {steps.map((stepLabel, index) => (
+              <span
+                key={stepLabel}
+                className={progressStep === index + 1 ? 'text-brand-600 font-bold' : ''}
+              >
+                {stepLabel}
+              </span>
+            ))}
           </div>
         </div>
 
@@ -293,8 +311,8 @@ export default function AddItem() {
 
                   <div>
                     <label className="block text-sm font-semibold text-neutral-900 mb-2">
-                      Price ($) *
-                    </label>
+                        Price (PKR) *
+                      </label>
                     <input
                       type="number"
                       name="price"
@@ -382,7 +400,7 @@ export default function AddItem() {
                   </div>
                   <div className="bg-brand-50 p-4 rounded-xl">
                     <p className="text-xs text-neutral-600">Price</p>
-                    <p className="text-lg font-bold text-neutral-900">${formData.price}</p>
+                    <p className="text-lg font-bold text-neutral-900">{new Intl.NumberFormat('en-PK', { style: 'currency', currency: 'PKR' }).format(Number(formData.price))}</p>
                   </div>
                   <div className="bg-brand-50 p-4 rounded-xl">
                     <p className="text-xs text-neutral-600">Expiry Date</p>

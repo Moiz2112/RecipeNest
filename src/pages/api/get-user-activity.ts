@@ -6,6 +6,7 @@ import { apiMiddleware } from '../../lib/apiMiddleware';
 import { filterResults } from '../../utils/utils';
 import { ExtendedRecipe } from '../../types';
 import User from '../../models/user';
+import aigenerated from '../../models/aigenerated';
 
 /**
  * API handler for fetching user activity (created and liked recipes).
@@ -43,6 +44,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse, session: any) 
             .sort({ createdAt: -1 })
             .lean() as unknown as ExtendedRecipe[];
 
+        const totalGeneratedCount = await aigenerated.countDocuments({ userId: session.user.id }).exec();
+        const AIusage = Math.min(Math.round((totalGeneratedCount / Number(process.env.API_REQUEST_LIMIT)) * 100), 100);
+
         return res.status(200).json({
             user: {
                 name: user.name,
@@ -51,6 +55,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse, session: any) 
             },
             createdRecipes: filterResults(createdRecipes, session.user.id),
             likedRecipes: filterResults(likedRecipes, session.user.id),
+            AIusage,
         });
     } catch (error) {
         console.error('Error fetching user activity:', error);

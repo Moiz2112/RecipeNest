@@ -102,6 +102,7 @@ export default function InventoryDashboard() {
             label="Total Items"
             value={dashboardData.stats.totalItems}
             color="orange"
+            onClick={() => router.push('/inventory/items')}
           />
           <StatCard
             icon="🏷️"
@@ -124,7 +125,7 @@ export default function InventoryDashboard() {
           <StatCard
             icon="💰"
             label="Total Value"
-            value={`$${dashboardData.stats.totalValue.toFixed(2)}`}
+            value={new Intl.NumberFormat('en-PK', { style: 'currency', currency: 'PKR' }).format(dashboardData.stats.totalValue)}
             color="green"
           />
           <StatCard

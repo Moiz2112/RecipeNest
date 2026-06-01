@@ -46,6 +46,8 @@ export default function AnalyticsPage() {
     return <Loading />;
   }
 
+  const formatPKR = (n: number) => new Intl.NumberFormat('en-PK', { style: 'currency', currency: 'PKR' }).format(n);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-brand-50 to-white">
       {/* Header */}
@@ -62,13 +64,13 @@ export default function AnalyticsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <div className="rounded-2xl bg-white p-6 shadow-lg border border-neutral-100/50">
             <p className="text-neutral-600 text-sm font-medium mb-2">Total Spending</p>
-            <p className="text-4xl font-bold text-neutral-900">${analytics.totalSpending.toFixed(2)}</p>
+            <p className="text-4xl font-bold text-neutral-900">{formatPKR(analytics.totalSpending)}</p>
             <p className="text-xs text-neutral-500 mt-2">Sum of all item prices</p>
           </div>
 
           <div className="rounded-2xl bg-white p-6 shadow-lg border border-neutral-100/50">
             <p className="text-neutral-600 text-sm font-medium mb-2">Food Waste Value</p>
-            <p className="text-4xl font-bold text-red-600">${analytics.wasteValue.toFixed(2)}</p>
+            <p className="text-4xl font-bold text-red-600">{formatPKR(analytics.wasteValue)}</p>
             <p className="text-xs text-neutral-500 mt-2">Value of expired items</p>
           </div>
 
@@ -182,14 +184,14 @@ export default function AnalyticsPage() {
                         {new Date(item.expiryDate).toLocaleDateString()}
                       </td>
                       <td className="px-6 py-3 text-right font-bold text-red-600">
-                        ${item.value.toFixed(2)}
+                        {formatPKR(item.value)}
                       </td>
                     </tr>
                   ))}
                   <tr className="bg-red-50 font-bold">
                     <td colSpan={2} className="px-6 py-3 text-neutral-900">Total Waste</td>
                     <td className="px-6 py-3 text-right text-red-600">
-                      ${analytics.wasteValue.toFixed(2)}
+                      {formatPKR(analytics.wasteValue)}
                     </td>
                   </tr>
                 </tbody>

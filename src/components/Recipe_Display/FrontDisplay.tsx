@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from "next/image"
 import { Button } from '@headlessui/react'
 import { HandThumbUpIcon } from '@heroicons/react/24/outline'
@@ -26,13 +26,33 @@ const getThumbsup = ({ liked, owns }: { liked: boolean, owns: boolean }) => {
 
 const FrontDisplay = React.forwardRef<HTMLDivElement, FrontDisplayProps>(
     ({ recipe, showRecipe, updateRecipeList }, ref) => {
+    const [optimisticLiked, setOptimisticLiked] = useState(recipe.liked);
+    const [optimisticCountDelta, setOptimisticCountDelta] = useState(0);
+    const [isUpdatingLike, setIsUpdatingLike] = useState(false);
+
+    useEffect(() => {
+        setOptimisticLiked(recipe.liked);
+        setOptimisticCountDelta(0);
+        setIsUpdatingLike(false);
+    }, [recipe._id, recipe.liked, recipe.likedBy.length]);
 
     const handleRecipeLike = async (recipeId: string) => {
+        if (recipe.owns || isUpdatingLike) return;
+
+        const nextLiked = !optimisticLiked;
+        setOptimisticLiked(nextLiked);
+        setOptimisticCountDelta(nextLiked ? 1 : -1);
+        setIsUpdatingLike(true);
+
         try {
             const result = await call_api({ address: '/api/like-recipe', method: 'put', payload: { recipeId } })
             updateRecipeList(result);
         } catch (error) {
             console.log(error)
+            setOptimisticLiked(recipe.liked);
+            setOptimisticCountDelta(0);
+        } finally {
+            setIsUpdatingLike(false);
         }
     }
 
@@ -73,10 +93,11 @@ const FrontDisplay = React.forwardRef<HTMLDivElement, FrontDisplayProps>(
                         className="py-1.5 px-3 hover:text-brand-600 hover:scale-105 hover:shadow text-center border border-gray-300 rounded-md border-gray-400 h-8 text-sm flex items-center gap-1 lg:gap-2"
                         onClick={() => handleRecipeLike(recipe._id)}
                         disabled={recipe.owns}
+                        type="button"
                         data-testid="like_button"
                     >
-                        {getThumbsup(recipe)}
-                        <span>{recipe.likedBy.length}</span>
+                        {getThumbsup({ liked: optimisticLiked, owns: recipe.owns })}
+                        <span>{recipe.likedBy.length + optimisticCountDelta}</span>
                     </Button>
                 </div>
             </div>

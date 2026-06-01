@@ -32,15 +32,21 @@ export const authOptions: NextAuthOptions = {
         newUser: undefined // If set, new users will be directed here on first sign in
     },
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user, trigger, session }) {
             if (user) {
                 token.id = user.id;
+            }
+            if (trigger === 'update' && session?.user) {
+                token.name = session.user.name;
+                token.picture = session.user.image;
             }
             return token;
         },
         async session({ session, token }) {
             if (session.user) {
                 session.user.id = token.id as string;
+                session.user.name = token.name as string || session.user.name;
+                session.user.image = token.picture as string || session.user.image;
             }
             return session;
         },

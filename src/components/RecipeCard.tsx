@@ -1,19 +1,16 @@
-import { Switch, Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
+import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/solid';
 import { Recipe } from '../types/index';
 import { useState } from 'react';
 
 interface RecipeCardProps {
     recipe: Recipe;
-    handleRecipeSelection?: (id: string) => void;
-    selectedRecipes: string[];
-    showSwitch?: boolean;
     removeMargin?: boolean;
     isModalView?: boolean;
+    selectedRecipes?: any[];
 }
 
-const RecipeCard = ({ recipe, handleRecipeSelection, selectedRecipes, showSwitch, removeMargin, isModalView = false }: RecipeCardProps) => {
-    const [isExpanded, setIsExpanded] = useState(false);
+const RecipeCard = ({ recipe, removeMargin, isModalView = false }: RecipeCardProps) => {
     const [showAllInstructions, setShowAllInstructions] = useState(false);
     const initialInstructionCount = 3;
     const instructionPreview = recipe.instructions.slice(0, initialInstructionCount);
@@ -26,45 +23,10 @@ const RecipeCard = ({ recipe, handleRecipeSelection, selectedRecipes, showSwitch
 
                 {/* === Recipe Title and Optional Switch === */}
                 <div className="flex justify-between items-stretch w-full">
-                    {/* Recipe Name - Expandable Only If Switch Exists */}
-                    <div
-                        className={`font-bold text-lg sm:text-xl lg:text-2xl mb-4 
-            ${showSwitch && !isExpanded ? 'truncate max-w-[65%] sm:max-w-[75%] lg:max-w-[85%]' : 'w-full'}
-            ${showSwitch ? 'cursor-pointer' : ''}
-        `}
-                        onClick={() => showSwitch && setIsExpanded(!isExpanded)}
-                        title={!showSwitch ? recipe.name : ''} // Tooltip for non-switch titles
-                    >
+                    {/* Recipe Name */}
+                    <div className="font-bold text-lg sm:text-xl lg:text-2xl mb-4 w-full" title={recipe.name}>
                         {recipe.name}
                     </div>
-
-                    {/* Optional Switch to Select Recipe */}
-                    {showSwitch && (
-                        <Switch
-                            checked={selectedRecipes.includes(recipe.openaiPromptId)}
-                            onChange={() =>
-                                handleRecipeSelection ? handleRecipeSelection(recipe.openaiPromptId) : undefined
-                            }
-                            className={`
-                relative inline-flex flex-shrink-0
-                ${selectedRecipes.includes(recipe.openaiPromptId) ? 'bg-brand-500' : 'bg-gray-300'}
-                h-[20px] w-[40px] sm:h-[28px] sm:w-[54px]
-                cursor-pointer rounded-full border-2 border-transparent
-                transition-colors duration-200 ease-in-out focus:outline-none
-            `}
-                        >
-                            <span className="sr-only">Use setting</span>
-                            <span
-                                aria-hidden="true"
-                                className={`
-                    pointer-events-none inline-block
-                    h-[16px] w-[16px] sm:h-[24px] sm:w-[23px]
-                    ${selectedRecipes.includes(recipe.openaiPromptId) ? 'translate-x-5 sm:translate-x-7' : 'translate-x-0'}
-                    transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out
-                `}
-                            />
-                        </Switch>
-                    )}
                 </div>
 
 

@@ -74,7 +74,7 @@ export default function Hero() {
                         <button onClick={() => setSelectedPage(null)} className="-m-1.5 p-1.5 flex items-center gap-2 hover:opacity-85 transition">
                             <span className="sr-only">Smart Recipe Generator</span>
                             <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-brand-500 flex items-center justify-center shadow-md">
-                                <Image src="/logo.svg" alt="RecipeNest Logo" fill className="p-1 object-contain" />
+                                <Image src="/recipe-nest-image1.png" alt="RecipeNest Logo" fill className="p-1 object-contain" />
                             </div>
                             <span className="font-extrabold text-lg text-neutral-800 tracking-tight font-heading">
                                 Recipe<span className="text-brand-600">Nest</span>
